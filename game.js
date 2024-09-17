@@ -89,6 +89,14 @@ function restartGame() {
 // Adiciona o evento de clique para reiniciar o jogo
 restartButton.addEventListener('click', restartGame);
 
+// Função para parar o movimento contínuo
+function stopMovement() {
+    clearInterval(keyInterval);
+    keyInterval = null;
+    clearInterval(moveInterval);
+    moveInterval = null;
+}
+
 // Funções para movimentar o jogador
 function moveLeft() {
     if (playerPosition > 0) {
@@ -108,21 +116,21 @@ function moveRight() {
 
 // Funções para controlar eventos do teclado e touchscreen
 function onKeyDown(e) {
-    if (!keyInterval) {  // Evita múltiplos intervals ao segurar a tecla
-        if (e.key === 'ArrowLeft') {
-            keyInterval = setInterval(moveLeft, 50); // Movimento contínuo para a esquerda
-        } else if (e.key === 'ArrowRight') {
-            keyInterval = setInterval(moveRight, 50); // Movimento contínuo para a direita
-        }
+    stopMovement(); // Garante que apenas um intervalo esteja ativo
+
+    if (e.key === 'ArrowLeft') {
+        keyInterval = setInterval(moveLeft, 50); // Movimento contínuo para a esquerda
+    } else if (e.key === 'ArrowRight') {
+        keyInterval = setInterval(moveRight, 50); // Movimento contínuo para a direita
     }
 }
 
 function onKeyUp() {
-    clearInterval(keyInterval); // Para o movimento contínuo do teclado quando a tecla for liberada
-    keyInterval = null;
+    stopMovement(); // Para o movimento contínuo do teclado quando a tecla for liberada
 }
 
 function onTouchStart(e) {
+    stopMovement(); // Garante que apenas um intervalo esteja ativo
     const touchX = e.touches[0].clientX;
     const screenWidth = window.innerWidth;
 
@@ -138,8 +146,7 @@ function onTouchStart(e) {
 }
 
 function onTouchEnd() {
-    clearInterval(moveInterval); // Para o movimento contínuo do toque quando o toque for liberado
-    moveInterval = null; // Garante que moveInterval seja redefinido
+    stopMovement(); // Para o movimento contínuo do toque quando o toque for liberado
 }
 
 // Função para iniciar o jogo
