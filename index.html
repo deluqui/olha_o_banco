@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo do Quadrado</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <audio id="backgroundMusic" src="background-music.mp3" loop></audio>
+    <div id="introScreen">
+        <img src="intro.png" alt="Tela Inicial">
+        <button id="startButton">Iniciar Jogo</button>
+    </div>
+    <div id="gameArea" style="display: none;">
+        <div id="player"></div>
+        <div id="score">Pontos: 0</div>
+    </div>
+    <div id="endScreen" style="display: none;">
+        <img src="gameOver.png" alt="Game Over" id="gameOverImage">
+        <button id="restartButton">Reiniciar Jogo</button>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>
